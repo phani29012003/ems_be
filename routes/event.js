@@ -4,7 +4,6 @@ const bycrpt    = require('bcrypt');
 const oevent    = require('../models/events/oevent');
 const organizedevent    = require('../models/events/organized');
 
-
 router.get('/organizedEvents',async(req,res)=>{
     try {
         const list = await organizedevent.find();

@@ -13,6 +13,23 @@ const aroutes = require('./routes/Auth');
 const eroutes = require('./routes/event');
 const proutes = require('./routes/publication');
 const exroutes = require('./routes/experience');
+const adroutes = require('./routes/admins');
+const pjroutes  = require('./routes/project');
+const path=require('path');
+const multer=require('multer');
+
+const storage=multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,'filesfolder')
+    },
+    filename:(req,file,cb)=>{
+        cb(null,file.originalname)
+    }
+});
+var upload =multer({storage:storage});
+
+
+
 
 mongoose.connect('mongodb://localhost/ems',{
     useNewUrlParser:true,
@@ -35,12 +52,21 @@ app.use(sessions({
     saveUninitialized:false
 }));
 app.use(cors({origin:"*"}));
+app.use('/images',express.static(path.join('images')))
 app.use('/user',uroutes);
 app.use('/dean',droutes);
+app.use('/admins',adroutes);
 app.use('/event',eroutes);
 app.use('/publication',proutes);
+app.use('/project',pjroutes);
 app.use('/experience',exroutes);
 app.use('/',aroutes);
+app.post('/files',upload.single('file'),(req,res,next)=>{
+});
+app.get('/download/:fn', function(req, res){
+    const file = `filesfolder/${req.params.fn}`;
+    res.download(file); // Set disposition and send it.
+  });
 
 
 

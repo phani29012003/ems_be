@@ -3,6 +3,20 @@ const router = express.Router();
 const bycrpt = require('bcrypt');
 const User = require('../models/User');
 
+const multer=require('multer');
+
+const storage=multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,'./images')
+    },
+    filename:(req,file,cb)=>{
+        cb(null,file.originalname)
+    }
+});
+var upload =multer({storage:storage});
+router.post('/image',upload.single('file'),(req,res,next)=>{
+});
+
 router.get('/', async (req,res)=>{
     try{
         const list = await User.find();
@@ -12,7 +26,7 @@ router.get('/', async (req,res)=>{
     }
 });
 
- 
+
 router.post('/new',async(req,res)=>{
     const hashedPassword = await bycrpt.hash(req.body.password,10);
     const user = new User({
@@ -97,6 +111,7 @@ router.post('/login', (req, res) => {
         });
 });
 router.put('/:uid/edit',async(req,res,next)=>{
+    let imgpath="http://localhost:2345/images/"
     User.findOneAndUpdate({_id:req.params.uid},{
         $set:{
             name:req.body.name,
@@ -110,7 +125,7 @@ router.put('/:uid/edit',async(req,res,next)=>{
             postalCode:req.body.postalCode,
             state:req.body.state,
             country:req.body.country,
-            image:req.body.image
+            image:imgpath.concat(req.body.image)
         }
     }).then(result=>{
         res.json("Updated succesfully");

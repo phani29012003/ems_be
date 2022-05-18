@@ -4,7 +4,7 @@ const bycrpt    = require('bcrypt');
 const patent    = require('../models/publications/patent');
 const conference = require('../models/publications/conference');
 const journal   = require('../models/publications/journal');
-
+;
 router.get('/patent',async(req,res)=>{
     try{
         const list = await patent.find();
