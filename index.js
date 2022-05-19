@@ -66,7 +66,7 @@ app.use('/',aroutes);
 app.post('/files',upload.single('file'),(req,res,next)=>{
 });
 
-app.post('/download/:fn', function(req, res){
+app.get('/download/:fn', function(req, res){
     var options = {
         root: path.join('filesfolder/')
     };
