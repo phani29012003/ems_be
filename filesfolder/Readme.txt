@@ -1,1 +1,1 @@
-The files will be Stored Here!!!!
+The Profile pics will be stored here!!!
