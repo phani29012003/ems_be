@@ -6,6 +6,8 @@ const express         = require('express'),
       mongoose        = require('mongoose'),
       methodOverride  =require('method-override'),
       cookieParser    = require('cookie-parser'),
+      fs = require('fs'),
+      mime = require('mime'),
       cors            = require('cors');
 const uroutes = require('./routes/user');
 const droutes = require('./routes/dean');
@@ -63,14 +65,21 @@ app.use('/experience',exroutes);
 app.use('/',aroutes);
 app.post('/files',upload.single('file'),(req,res,next)=>{
 });
-app.get('/download/:fn', function(req, res){
-    const file = `filesfolder/${req.params.fn}`;
-    res.download(file); // Set disposition and send it.
+
+app.post('/download/:fn', function(req, res){
+    var options = {
+        root: path.join('filesfolder/')
+    };
+    var filePath = `${req.params.fn}`;
+    res.sendFile(filePath,options,function(err){
+        if(err){
+            console.log(err);
+        }else{
+            console.log('sent');
+            //next();
+        }
+    })
   });
-
-
-
-
 app.listen(2345,function(){
     console.log("Listening to the port 2345");
 });
