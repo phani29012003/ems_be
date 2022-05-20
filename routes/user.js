@@ -135,5 +135,15 @@ router.put('/:uid/edit',async(req,res,next)=>{
     })
 
 })
+router.delete('delete/:id',function(req,res){
+    User.findByIdAndRemove(req.params.id,function(err){
+        if(err){
+            res.json({message : err});
+        }
+        else{
+            res.json("User successfully deleted")
+        }
+    })
+});
 module.exports= router;
 

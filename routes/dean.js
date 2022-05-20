@@ -78,5 +78,15 @@ router.get('/:did',async(req,res)=>{
         res.json({message : err});
     }
 });
+router.delete('delete/:id',function(req,res){
+    Dean.findByIdAndRemove(req.params.id,function(err){
+        if(err){
+            res.json({message : err});
+        }
+        else{
+            res.json("Dean successfully deleted")
+        }
+    })
+});
 
 module.exports= router;

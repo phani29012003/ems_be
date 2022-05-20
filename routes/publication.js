@@ -137,5 +137,34 @@ router.get('/journal/:uid',function(req,res){
         }
     });
 });
-
+router.delete('delete/conference/:id',function(req,res){
+    conference.findByIdAndRemove(req.params.id,function(err){
+        if(err){
+            res.json({message : err});
+        }
+        else{
+            res.json("Conference successfully deleted")
+        }
+    })
+});
+router.delete('delete/patent/:id',function(req,res){
+    patent.findByIdAndRemove(req.params.id,function(err){
+        if(err){
+            res.json({message : err});
+        }
+        else{
+            res.json("Patent successfully deleted")
+        }
+    })
+});
+router.delete('delete/journal/:id',function(req,res){
+    journal.findByIdAndRemove(req.params.id,function(err){
+        if(err){
+            res.json({message : err});
+        }
+        else{
+            res.json("Journal successfully deleted")
+        }
+    })
+});
 module.exports=router;

@@ -45,4 +45,14 @@ router.get('/funded/:uid',function(req,res){
         }
     });
 });
+router.delete('delete/funded/:id',function(req,res){
+    Dean.findByIdAndRemove(req.params.id,function(err){
+        if(err){
+            res.json({message : err});
+        }
+        else{
+            res.json("funded project successfully deleted")
+        }
+    })
+});
 module.exports= router;

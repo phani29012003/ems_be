@@ -101,4 +101,24 @@ router.get('/getOrganizedEvent/:uid',function(req,res){
         }
     });
 });
+router.delete('delete/organized/:id',function(req,res){
+    organizedevent.findByIdAndRemove(req.params.id,function(err){
+        if(err){
+            res.json({message : err});
+        }
+        else{
+            res.json("Event successfully deleted")
+        }
+    })
+});
+router.delete('delete/oevent/:id',function(req,res){
+    oevent.findByIdAndRemove(req.params.id,function(err){
+        if(err){
+            res.json({message : err});
+        }
+        else{
+            res.json("Event successfully deleted")
+        }
+    })
+});
 module.exports= router;
