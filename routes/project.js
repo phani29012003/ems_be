@@ -45,8 +45,8 @@ router.get('/funded/:uid',function(req,res){
         }
     });
 });
-router.delete('delete/funded/:id',function(req,res){
-    Dean.findByIdAndRemove(req.params.id,function(err){
+router.delete('/delete/funded/:id',function(req,res){
+    funded.findByIdAndRemove(req.params.id,function(err){
         if(err){
             res.json({message : err});
         }
